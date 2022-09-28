@@ -69,13 +69,13 @@ def merge(firstIndex, lastIndex, mid, a, b):
 
 
 
-def mergesort1(firstIndex, lastIndex, a , b):
+def recursivemergesort(firstIndex, lastIndex, a , b):
     if firstIndex >= lastIndex:
         return
     else:
         mid = math.floor((firstIndex + lastIndex) / 2)
-        mergesort1(firstIndex, mid, a , b)
-        mergesort1(mid + 1, lastIndex, a , b)
+        recursivemergesort(firstIndex, mid, a , b)
+        recursivemergesort(mid + 1, lastIndex, a , b)
         merge(firstIndex, lastIndex, mid, a , b)
 
 
@@ -85,7 +85,7 @@ def mergesort(a):
     b=[]
     for element in a:
         b.append(element)
-    mergesort1(firstIndex, lastIndex, a, b)
+    recursivemergesort(firstIndex, lastIndex, a, b)
     return b
 
 
@@ -157,7 +157,7 @@ def run():
         print("First create nums.txt")
         sys.exit(0)
 
-    #run_bubblesort()
+    run_bubblesort()
     run_mergesort()
     # run_quicksort()
     # run_heapsort()
