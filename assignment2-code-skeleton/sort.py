@@ -1,7 +1,7 @@
 import os
 import array
 import sys
-
+import math
 # Bubble Sort Implementation
 
 def swap(a, i, j):
@@ -40,6 +40,58 @@ def run_bubblesort():
     nums_sorted.close()
 
 
+def merge(lowIndex, lastIndex, mid, a, b):
+    i= lowIndex
+    j= mid+1
+    k=lowIndex
+    while i <= mid and j <=lastIndex:
+        if a[i] <= a[j]:
+            b[k]=a[i]
+            i+=1
+        else:
+            b[k]=a[j]
+            j+=1
+        k+=1
+
+    if i > mid:
+        while j<=lastIndex:
+            b[k]=a[j]
+            j+=1
+            k+=1
+    else:
+        while i<=mid:
+            b[k]=a[i]
+            i=i+1
+            k=k+1
+    for k in range(lowIndex, lastIndex+1, 1):
+        a[k]=b[k]
+
+
+
+
+def mergesort1(firstIndex, lastIndex, a , b):
+    if firstIndex >= lastIndex:
+        return
+    else:
+        mid = math.floor((firstIndex + lastIndex) / 2)
+        mergesort1(firstIndex, mid, a , b)
+        mergesort1(mid + 1, lastIndex, a , b)
+        merge(firstIndex, lastIndex, mid, a , b)
+
+
+def mergesort(a):
+    firstIndex = 0
+    lastIndex = len(a)-1
+    b=[]
+    for element in a:
+        b.append(element)
+    mergesort1(firstIndex, lastIndex, a, b)
+    return b
+
+
+
+
+
 def run_mergesort():
     # read the content of nums.txt into an array
     nums = open('nums.txt', 'r')
@@ -49,11 +101,11 @@ def run_mergesort():
 
     # Testing mergesort
     # Call your mergesort implementation here
-    # mergesort(a)
+    s=mergesort(a)
 
     # output nums_sorted.txt
     nums_sorted = open('mergesorted.txt', 'w')
-    for element in a:
+    for element in s:
         nums_sorted.write(str(element) + "\n")
 
     nums.close()
@@ -102,13 +154,13 @@ def run_heapsort():
 def run():
     # check if nums.txt exists
     if not os.path.exists('nums.txt'):
-        print "First create nums.txt"
+        print("First create nums.txt")
         sys.exit(0)
 
-    run_bubblesort()
+    #run_bubblesort()
     run_mergesort()
-    run_quicksort()
-    run_heapsort()
+    # run_quicksort()
+    # run_heapsort()
 
 
 # python sort.py runs run
