@@ -40,30 +40,30 @@ def run_bubblesort():
     nums_sorted.close()
 
 
-def merge(lowIndex, lastIndex, mid, a, b):
-    i= lowIndex
-    j= mid+1
-    k=lowIndex
-    while i <= mid and j <=lastIndex:
-        if a[i] <= a[j]:
-            b[k]=a[i]
-            i+=1
+def merge(firstIndex, lastIndex, mid, a, b):
+    leftPointer= firstIndex
+    rightPointer= mid+1
+    k=firstIndex
+    while leftPointer <= mid and rightPointer <=lastIndex:
+        if a[leftPointer] <= a[rightPointer]:
+            b[k]=a[leftPointer]
+            leftPointer+=1
         else:
-            b[k]=a[j]
-            j+=1
+            b[k]=a[rightPointer]
+            rightPointer+=1
         k+=1
 
-    if i > mid:
-        while j<=lastIndex:
-            b[k]=a[j]
-            j+=1
+    if leftPointer > mid:
+        while rightPointer<=lastIndex:
+            b[k]=a[rightPointer]
+            rightPointer+=1
             k+=1
     else:
-        while i<=mid:
-            b[k]=a[i]
-            i=i+1
+        while leftPointer<=mid:
+            b[k]=a[leftPointer]
+            leftPointer+=1
             k=k+1
-    for k in range(lowIndex, lastIndex+1, 1):
+    for k in range(firstIndex, lastIndex+1, 1):
         a[k]=b[k]
 
 
@@ -101,11 +101,11 @@ def run_mergesort():
 
     # Testing mergesort
     # Call your mergesort implementation here
-    s=mergesort(a)
+    sortedArray=mergesort(a)
 
     # output nums_sorted.txt
     nums_sorted = open('mergesorted.txt', 'w')
-    for element in s:
+    for element in sortedArray:
         nums_sorted.write(str(element) + "\n")
 
     nums.close()
