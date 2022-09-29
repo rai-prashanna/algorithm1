@@ -44,6 +44,8 @@ def merge(firstIndex, lastIndex, mid, a, b):
     leftPointer= firstIndex
     rightPointer= mid+1
     k=firstIndex
+    # compare until there are elements in
+    # both left array and right array
     while leftPointer <= mid and rightPointer <=lastIndex:
         if a[leftPointer] <= a[rightPointer]:
             b[k]=a[leftPointer]
@@ -52,45 +54,46 @@ def merge(firstIndex, lastIndex, mid, a, b):
             b[k]=a[rightPointer]
             rightPointer+=1
         k+=1
-
+    #copy all remaining elements from right array
+    # when there are no any elements in left array
     if leftPointer > mid:
         while rightPointer<=lastIndex:
             b[k]=a[rightPointer]
             rightPointer+=1
             k+=1
+    #copy all remaining elements from left array
+    # when there are no any elements in right array
     else:
         while leftPointer<=mid:
             b[k]=a[leftPointer]
             leftPointer+=1
             k=k+1
+    #copy sorted element to original array
     for k in range(firstIndex, lastIndex+1, 1):
         a[k]=b[k]
 
 
-
-
 def recursivemergesort(firstIndex, lastIndex, a , b):
+    #do nothing when there is single element
     if firstIndex >= lastIndex:
         return
+    #divide array into two equal halves and
+    #merge sorted array recursively
     else:
         mid = math.floor((firstIndex + lastIndex) / 2)
         recursivemergesort(firstIndex, mid, a , b)
         recursivemergesort(mid + 1, lastIndex, a , b)
         merge(firstIndex, lastIndex, mid, a , b)
 
-
 def mergesort(a):
     firstIndex = 0
     lastIndex = len(a)-1
     b=[]
+    #create identical array
     for element in a:
         b.append(element)
     recursivemergesort(firstIndex, lastIndex, a, b)
     return b
-
-
-
-
 
 def run_mergesort():
     # read the content of nums.txt into an array
